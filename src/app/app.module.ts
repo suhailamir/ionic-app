@@ -10,7 +10,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
-import { WelocmePage } from "../welcome/welcome";
+import { WelcomePage } from "../pages/welcome/welcome";
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -25,6 +25,7 @@ import { AuthProvider } from '../providers/auth/auth';
     HomePage,
     TabsPage,
     LoginPage,
+    WelcomePage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +40,7 @@ import { AuthProvider } from '../providers/auth/auth';
     HomePage,
     TabsPage,
     LoginPage,
-
+    WelcomePage
   ],
   providers: [
     StatusBar,
