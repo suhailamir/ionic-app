@@ -4,7 +4,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 // import {Http, ResponseOptions,Headers,HttpModule,URLSearchParams} from "@angular/http";
-import {Http,URLSearchParams} from "@angular/http";
+import {Http} from "@angular/http";
 import 'rxjs/add/operator/map';
 
 
@@ -26,8 +26,8 @@ export class LoginPage {
 
   public login() {
     this.showLoading()
-    this.showLogin()
-    this.auth.login(this.registerCredentials).subscribe(allowed => {   
+    // this.showLogin()
+    this.auth.login(this.registerCredentials).subscribe(allowed => {
         if (allowed) {
             this.nav.setRoot(HomePage);
         } else {
@@ -39,16 +39,16 @@ export class LoginPage {
     });
   }
 
-  showLogin() {
-     console.log(this.registerCredentials)
-    this.http.post('https://secret-dusk-18647.herokuapp.com/api/user/login',this.registerCredentials)
-      .subscribe(res => {
-        console.log(res)
-      },
-      error => {
-        this.showError(error);
-      });
-  }
+  // showLogin() {
+  //   console.log(this.registerCredentials)
+  //   this.http.post('https://secret-dusk-18647.herokuapp.com/api/user/login',this.registerCredentials)
+  //     .subscribe(res => {
+  //       console.log(res)
+  //     },
+  //     error => {
+  //       this.showError(error);
+  //     });
+  // }
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
