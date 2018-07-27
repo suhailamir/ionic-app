@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 // import { NavController, AlertController} from 'ionic-angular';
 import { Http} from "@angular/http";
 // import { LoginPage } from '../../pages/login/login';
@@ -7,11 +8,8 @@ import { Http} from "@angular/http";
 
 
 export class User {
-  name: string;
   email: string;
-
-  constructor(name: string, email: string) {
-    this.name = name;
+  constructor(email: string) {
     this.email = email;
   }
 }
@@ -19,6 +17,9 @@ export class User {
 @Injectable()
 export class AuthProvider {
   currentUser: User;
+  constructor(private http: Http) {
+
+  }
 
   // constructor(private nav: NavController, private auth: AuthProvider, private alertCtrl: AlertController, private http: Http, ) { }
   constructor( private http: Http, ) { }
@@ -28,11 +29,21 @@ export class AuthProvider {
       return Observable.throw("Please insert credentials");
     } else {
       return Observable.create(observer => {
-        // At this point make a request to your backend to make a real check!
-        let access = (credentials.password === "pass" && credentials.email === "email");
-        this.currentUser = new User('Simon', 'saimon@devdactic.com');
-        observer.next(access);
-        observer.complete();
+
+        this.http.post('https://secret-dusk-18647.herokuapp.com/api/user/login', credentials)
+          .subscribe(res => {
+            console.log(res)
+            // At this point make a request to your backend to make a real check!
+            let access = (res.status === 200);
+            this.currentUser = new User(credentials.email);
+            observer.next(access);
+            observer.complete();
+          },
+            error => {
+              console.log(error);
+            });
+
+
       });
     }
   }
