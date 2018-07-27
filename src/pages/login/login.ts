@@ -21,10 +21,12 @@ export class LoginPage {
 
   }
   public createAccount() {
+
     this.nav.push(RegisterPage);
   }
 
   public login() {
+    console.log('logging in')
     this.showLoading()
     // this.showLogin()
     this.auth.login(this.registerCredentials).subscribe(allowed => {
@@ -39,17 +41,6 @@ export class LoginPage {
         this.showError(error);
       });
   }
-
-  // showLogin() {
-  //   console.log(this.registerCredentials)
-  //   this.http.post('https://secret-dusk-18647.herokuapp.com/api/user/login',this.registerCredentials)
-  //     .subscribe(res => {
-  //       console.log(res)
-  //     },
-  //     error => {
-  //       this.showError(error);
-  //     });
-  // }
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
