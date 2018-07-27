@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+// import { NavController, AlertController} from 'ionic-angular';
+import { Http} from "@angular/http";
+// import { LoginPage } from '../../pages/login/login';
+
 
 
 export class User {
@@ -16,6 +19,9 @@ export class User {
 @Injectable()
 export class AuthProvider {
   currentUser: User;
+
+  // constructor(private nav: NavController, private auth: AuthProvider, private alertCtrl: AlertController, private http: Http, ) { }
+  constructor( private http: Http, ) { }
 
   public login(credentials) {
     if (credentials.email === null || credentials.password === null) {
@@ -35,10 +41,20 @@ export class AuthProvider {
     if (credentials.email === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");
     } else {
+      
       // At this point store the credentials to your backend!
       return Observable.create(observer => {
-        observer.next(true);
-        observer.complete();
+        this.http.post('https://secret-dusk-18647.herokuapp.com/api/user/register', credentials)
+          .subscribe(res => {
+            console.log(res)
+            // this.nav.setRoot(LoginPage);
+
+            observer.next(true);
+            observer.complete();
+          },
+            error => {
+              // this.showError(error);
+            });
       });
     }
   }
