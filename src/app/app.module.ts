@@ -11,6 +11,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { WelcomePage } from "../pages/welcome/welcome";
+import { RegisterPage } from '../pages/register/register';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -25,7 +26,8 @@ import { AuthProvider } from '../providers/auth/auth';
     HomePage,
     TabsPage,
     LoginPage,
-    WelcomePage
+    WelcomePage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import { AuthProvider } from '../providers/auth/auth';
     HomePage,
     TabsPage,
     LoginPage,
-    WelcomePage
+    WelcomePage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
