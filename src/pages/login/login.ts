@@ -3,6 +3,9 @@ import { NavController, AlertController, LoadingController, Loading, IonicPage }
 import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
+// import {Http, ResponseOptions,Headers,HttpModule,URLSearchParams} from "@angular/http";
+import {Http,URLSearchParams} from "@angular/http";
+import 'rxjs/add/operator/map';
 
 
 @IonicPage()
@@ -14,21 +17,34 @@ export class LoginPage {
   loading: Loading;
   registerCredentials = { email: '', password: '' };
 
-  constructor(private nav: NavController, private auth: AuthProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
+  constructor(private http: Http, private nav: NavController, private auth: AuthProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { 
 
+  }
   public createAccount() {
     this.nav.push(RegisterPage);
   }
 
   public login() {
     this.showLoading()
-    this.auth.login(this.registerCredentials).subscribe(allowed => {
-      if (allowed) {
-        this.nav.setRoot(HomePage);
-      } else {
-        this.showError("Access Denied");
-      }
+    this.showLogin()
+    this.auth.login(this.registerCredentials).subscribe(allowed => {   
+        if (allowed) {
+            this.nav.setRoot(HomePage);
+        } else {
+            this.showError("Access Denied");
+        }
     },
+    error => {
+        this.showError(error);
+    });
+  }
+
+  showLogin() {
+     console.log(this.registerCredentials)
+    this.http.post('https://secret-dusk-18647.herokuapp.com/api/user/login',this.registerCredentials)
+      .subscribe(res => {
+        console.log(res)
+      },
       error => {
         this.showError(error);
       });
