@@ -4,7 +4,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 // import {Http, ResponseOptions,Headers,HttpModule,URLSearchParams} from "@angular/http";
-import {Http} from "@angular/http";
+import { Http } from "@angular/http";
 import 'rxjs/add/operator/map';
 
 
@@ -17,7 +17,7 @@ export class LoginPage {
   loading: Loading;
   registerCredentials = { email: '', password: '' };
 
-  constructor(private http: Http, private nav: NavController, private auth: AuthProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { 
+  constructor(private http: Http, private nav: NavController, private auth: AuthProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
 
   }
   public createAccount() {
@@ -28,15 +28,16 @@ export class LoginPage {
     this.showLoading()
     // this.showLogin()
     this.auth.login(this.registerCredentials).subscribe(allowed => {
-        if (allowed) {
-            this.nav.setRoot(HomePage);
-        } else {
-            this.showError("Access Denied");
-        }
+      if (allowed) {
+        console.log('allowed :', allowed);
+        this.nav.setRoot(HomePage);
+      } else {
+        this.showError("Access Denied");
+      }
     },
-    error => {
+      error => {
         this.showError(error);
-    });
+      });
   }
 
   // showLogin() {
